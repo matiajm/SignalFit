@@ -4,7 +4,14 @@
 
 SignalFit is a wellness and performance reflection app for the Miami Cursor Hackathon. Users log what they ate (MyFitnessPal-style), weight, sleep, training, and how they feel. The app derives nutrition from food logs and uses AI to surface **possible patterns** between habits and energy or performance — not medical advice.
 
-**Repository:** [github.com/matiajm/SignalFit](https://github.com/matiajm/SignalFit)
+**Repository (primary):** [github.com/matiajm/SignalFit](https://github.com/matiajm/SignalFit)
+
+```bash
+git clone https://github.com/matiajm/SignalFit.git
+cd SignalFit
+```
+
+This project is **not** tied to `Mr-Higgs/cursor-demo` — use the SignalFit repo for all hackathon work and pushes.
 
 ---
 
