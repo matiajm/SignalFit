@@ -1,0 +1,104 @@
+{
+  "foods": [
+    {
+      "id": "chicken_breast_grilled",
+      "aliases": ["chicken breast", "chicken breast grilled"],
+      "serving": "6 oz",
+      "calories": 280,
+      "protein_g": 52,
+      "carbs_g": 0,
+      "fat_g": 6,
+      "fiber_g": 0
+    },
+    {
+      "id": "white_rice_cooked",
+      "aliases": ["white rice", "white rice cooked", "rice cooked"],
+      "serving": "1 cup",
+      "calories": 210,
+      "protein_g": 4,
+      "carbs_g": 45,
+      "fat_g": 0,
+      "fiber_g": 1
+    },
+    {
+      "id": "banana_medium",
+      "aliases": ["banana"],
+      "serving": "1 medium",
+      "calories": 105,
+      "protein_g": 1,
+      "carbs_g": 27,
+      "fat_g": 0,
+      "fiber_g": 3
+    },
+    {
+      "id": "protein_bar",
+      "aliases": ["protein bar"],
+      "serving": "1 bar",
+      "calories": 200,
+      "protein_g": 20,
+      "carbs_g": 22,
+      "fat_g": 6,
+      "fiber_g": 3
+    },
+    {
+      "id": "broccoli_steamed",
+      "aliases": ["broccoli", "broccoli steamed"],
+      "serving": "1 cup",
+      "calories": 55,
+      "protein_g": 4,
+      "carbs_g": 11,
+      "fat_g": 0,
+      "fiber_g": 5
+    },
+    {
+      "id": "coffee_black",
+      "aliases": ["coffee", "coffee black"],
+      "serving": "12 oz",
+      "calories": 5,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 0,
+      "fiber_g": 0
+    },
+    {
+      "id": "eggs_large",
+      "aliases": ["egg", "eggs", "large eggs"],
+      "serving": "2 large",
+      "calories": 140,
+      "protein_g": 12,
+      "carbs_g": 1,
+      "fat_g": 10,
+      "fiber_g": 0
+    },
+    {
+      "id": "oatmeal_cooked",
+      "aliases": ["oatmeal", "oats cooked"],
+      "serving": "1 cup",
+      "calories": 150,
+      "protein_g": 5,
+      "carbs_g": 27,
+      "fat_g": 3,
+      "fiber_g": 4
+    },
+    {
+      "id": "greek_yogurt",
+      "aliases": ["greek yogurt"],
+      "serving": "170g",
+      "calories": 100,
+      "protein_g": 17,
+      "carbs_g": 6,
+      "fat_g": 0,
+      "fiber_g": 0
+    },
+    {
+      "id": "whey_shake",
+      "aliases": ["whey", "protein shake"],
+      "serving": "1 scoop",
+      "calories": 120,
+      "protein_g": 24,
+      "carbs_g": 3,
+      "fat_g": 1,
+      "fiber_g": 0
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "goal": "build_muscle",
+  "weight_lb": 172,
+  "sleep": {
+    "hours": 5,
+    "quality": "low"
+  },
+  "nutrition_input": {
+    "source": "demo",
+    "meals": [
+      {
+        "name": "breakfast",
+        "items": [
+          { "description": "coffee black", "quantity": "12 oz" },
+          { "description": "banana", "quantity": "1 medium" }
+        ]
+      },
+      {
+        "name": "lunch",
+        "items": []
+      },
+      {
+        "name": "pre_workout",
+        "items": [
+          { "description": "protein bar", "quantity": "1 bar" }
+        ]
+      },
+      {
+        "name": "dinner",
+        "items": [
+          { "description": "chicken breast grilled", "quantity": "6 oz" },
+          { "description": "white rice cooked", "quantity": "1 cup" },
+          { "description": "broccoli steamed", "quantity": "1 cup" }
+        ]
+      }
+    ],
+    "pasted_text": null,
+    "skipped_log": false
+  },
+  "nutrition": {
+    "calories": 1400,
+    "protein_g": 80,
+    "carbs_g": 120,
+    "fat_g": 45,
+    "fiber_g": 12,
+    "meals_count": 3,
+    "ate_enough_for_goal": "no",
+    "micronutrients": {
+      "vitamin_d": { "status": "low" },
+      "magnesium": { "status": "partial" },
+      "iron": { "status": "not_sure" }
+    }
+  },
+  "supplements": {
+    "multivitamin": "no",
+    "vitamin_d": "skipped",
+    "other": "creatine 5g"
+  },
+  "training": {
+    "trained": true,
+    "type": "strength",
+    "duration_min": 75,
+    "muscle_groups": ["quads", "glutes", "hamstrings"],
+    "exercises": "Back squat 3x5 @RPE8, Romanian deadlift 3x8, leg press 2x12",
+    "intensity": "hard",
+    "rpe": 8,
+    "performance_vs_usual": "much_worse",
+    "volume_feel": "normal",
+    "soreness": 4,
+    "soreness_areas": ["quads", "glutes"]
+  },
+  "wellbeing": {
+    "energy": "low",
+    "mood": "low",
+    "stress": "high",
+    "motivation": "low"
+  },
+  "notes": "Heavy deadlines at work; skipped lunch",
+  "recent_days": [
+    {
+      "date": "yesterday",
+      "sleep_hours": 5.5,
+      "sleep_quality": "low",
+      "nutrition_summary": "Similar light intake; skipped lunch",
+      "calories": 1500,
+      "trained": true,
+      "performance_vs_usual": "below",
+      "energy": "low",
+      "stress": "high"
+    },
+    {
+      "date": "2 days ago",
+      "sleep_hours": 6,
+      "sleep_quality": "okay",
+      "nutrition_summary": "Moderate meals, low protein",
+      "calories": 1800,
+      "trained": false,
+      "energy": "okay",
+      "stress": "moderate"
+    }
+  ]
+}

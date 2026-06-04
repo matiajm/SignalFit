@@ -1,0 +1,35 @@
+[
+  {
+    "date": "yesterday",
+    "sleep_hours": 5.5,
+    "sleep_quality": "low",
+    "nutrition_summary": "Similar light intake; skipped lunch",
+    "calories": 1500,
+    "trained": true,
+    "performance_vs_usual": "below",
+    "energy": "low",
+    "stress": "high"
+  },
+  {
+    "date": "2 days ago",
+    "sleep_hours": 6,
+    "sleep_quality": "okay",
+    "nutrition_summary": "Moderate meals, low protein",
+    "calories": 1800,
+    "trained": false,
+    "performance_vs_usual": null,
+    "energy": "okay",
+    "stress": "moderate"
+  },
+  {
+    "date": "3 days ago",
+    "sleep_hours": 4.5,
+    "sleep_quality": "low",
+    "nutrition_summary": "Late dinner, low calories overall",
+    "calories": 1300,
+    "trained": true,
+    "performance_vs_usual": "much_worse",
+    "energy": "low",
+    "stress": "high"
+  }
+]

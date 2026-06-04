@@ -1,0 +1,39 @@
+# SignalFit — Cursor rules (Miami Cursor Hackathon)
+
+## Product
+
+You are building SignalFit: a wellness and performance reflection app. Users log food (MyFitnessPal-style), weight, sleep, training, and wellbeing. Nutrition is DERIVED from food logs, not entered as raw macros. AI returns structured JSON insights.
+
+Read docs/PRODUCT.md, docs/API-CONTRACT.md, and docs/TEAM-ROLES.md before large changes.
+
+## Safety (required in all AI copy)
+
+- This is NOT medical advice. No diagnosis, prescriptions, or certainty.
+- Use: "possible pattern", "may suggest", "worth noticing", "could be connected to", "based on what you logged".
+- Always include safety_note in insight responses.
+- Never: fear-based warnings, body shaming, supplement pushing, extreme diets, unsafe training advice.
+
+## Engineering
+
+- Ship the smallest working slice first. Deploy early (public URL by ~7:30pm).
+- API keys only on the server, never in client bundles.
+- Freeze API-CONTRACT.md response shape unless all roles agree.
+- Build the hackathon app in app/ — do not expand deepagents/ for SignalFit features.
+- Prefer structured LLM output (JSON schema / JSON mode) matching docs/API-CONTRACT.md.
+
+## Code quality
+
+- Clear names, typed request/response where using TypeScript.
+- Loading and error states on generate insight.
+- "Load demo day" must work for expo (data/demo-bad-recovery-day.json).
+
+## Frontend
+
+- Multi-step form: Goal & weight → Sleep → Food → Training → Feel.
+- Show nutrition summary from resolved meals before or after generate.
+- Mobile-friendly; accessible labels and focus states.
+
+## Nutrition resolver
+
+- Map food items via data/foods.json (fake DB for hackathon).
+- Demo payload may include precomputed nutrition when source is "demo".
