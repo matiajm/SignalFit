@@ -1,24 +1,28 @@
-# SignalFit app
+# SignalFit App
 
-Hackathon application — scaffold here (Next.js recommended).
+React/Vite frontend integrated from `Fitness Tracking App Design.zip`.
 
-## Scaffold (Role 2 + 3)
+## Run locally
 
 ```bash
-npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --no-import-alias
+npm install
+npm run dev
 ```
 
-Add `POST /api/insight` per [../docs/API-CONTRACT.md](../docs/API-CONTRACT.md).
+Open the local URL printed by Vite, usually `http://localhost:5173/`.
 
-## Env
+## Build
 
 ```bash
-# .env.local
+npm run build
+```
+
+## OpenAI client
+
+The server-side OpenAI helper is still available at `src/lib/openai/` and defaults to `gpt-4.1-mini`.
+
+Keep real keys in `.env.local`; it is ignored by Git:
+
+```bash
 OPENAI_API_KEY=sk-...
-# or
-ANTHROPIC_API_KEY=sk-ant-...
 ```
-
-## Demo data
-
-Import from [../data/demo-bad-recovery-day.json](../data/demo-bad-recovery-day.json) for the **Load demo day** button.
