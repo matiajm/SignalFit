@@ -1,0 +1,83 @@
+# SignalFit — Cursor Rules
+# Miami Cursor Hackathon · Build & Ship Track
+
+## Project
+SignalFit is a wellness reflection app. Users log food, sleep, training, and how they feel.
+We derive nutrition from meals and use an LLM to surface possible patterns between habits and performance.
+**Not medical advice. Wellness reflection only.**
+
+## Stack
+- Next.js 14 (App Router)
+- TypeScript
+- Supabase (Postgres + auth)
+- OpenAI GPT-4o (structured JSON output)
+- Tailwind CSS
+- Vercel (deploy)
+
+## Architecture
+```
+Browser form
+  → POST /api/insight
+    → resolveNutrition(meals, supabase.foods)
+    → OpenAI GPT-4o (JSON mode)
+    → insert into supabase.logs
+  → Insight UI
+```
+
+## Key Files
+- `app/api/insight/route.ts` — main API route (Role 3)
+- `app/page.tsx` — multi-step form (Role 2)
+- `data/demo-bad-recovery-day.json` — demo scenario (Role 5)
+- `data/foods.json` — food lookup (Role 5)
+- `supabase/migrations/` — schema (Role 3)
+- `supabase/seed/` — seed data (Role 5)
+
+## API Contract
+Request shape: goal, weight_lb, sleep, nutrition_input, training, wellbeing, notes, recent_days
+Response shape: recovery_status, readiness_score, main_insight, summary, what_is_helping,
+  what_is_hurting, possible_connections, signals, today_action_plan, tomorrow_focus,
+  reflection_question, safety_note
+
+**Do not rename response fields without team agreement.**
+
+## Language Rules (AI Safety)
+The LLM prompt must always use:
+- "possible pattern", "may suggest", "based on what you logged"
+- "worth noticing", "appears to line up with"
+Never use:
+- Certainty claims ("this means", "you have", "you need")
+- Medical language ("diagnosis", "treatment", "condition")
+- Fear-based framing or body shaming
+- Supplement pushing or extreme diet advice
+Always include `safety_note` in every response.
+
+## Cursor Behavior
+- Always write TypeScript, never plain JS in app/
+- Use `?.` optional chaining — many fields are optional
+- Never expose ANTHROPIC_API_KEY or SUPABASE_ANON_KEY to the browser
+- All LLM calls go through /api/insight — never call OpenAI from the client
+- Use `response_format: { type: 'json_object' }` on all OpenAI calls
+- Wrap LLM JSON.parse in try/catch and fall back to canned response
+- Don't await Supabase log inserts — fire and forget so user isn't waiting
+- Demo button loads data/demo-bad-recovery-day.json into form state
+- nutrition object is always server-computed, never sent from the form
+
+## Supabase Tables
+profiles, daily_checkins, meals, meal_items, foods, insights,
+training_sessions, nutrition_snapshots, workout_exercises, workout_sets
+
+## Enums
+goal: build_muscle | lose_fat | performance | feel_better | maintain
+sleep.quality: low | okay | good
+energy/mood/stress/motivation: low | okay | high
+performance_vs_usual: better | normal | below | much_worse
+signals.*.status: low | okay | high
+
+## Demo Scenario (must match script)
+5h sleep · low quality · ~1400 cal · hard leg day · performance much worse · low energy · high stress
+Load via: data/demo-bad-recovery-day.json
+
+## Sync Points
+6:00pm · 7:00pm · 8:30pm
+Submit URL before 9:00pm
+Feature freeze 9:30pm
