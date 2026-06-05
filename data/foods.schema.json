@@ -1,0 +1,49 @@
+{
+  "$comment": "Template for each food in foods.json / Supabase foods table. All values per default_serving.",
+  "slug": "chicken_breast_grilled",
+  "name": "Chicken breast grilled",
+  "brand": null,
+  "aliases": ["chicken breast", "chicken breast grilled"],
+  "default_serving": "6 oz",
+  "serving_grams": 170,
+  "macros": {
+    "calories": 280,
+    "protein_g": 52,
+    "carbs_g": 0,
+    "fat_g": 6,
+    "fiber_g": 0,
+    "sugar_g": 0,
+    "saturated_fat_g": 1.5,
+    "trans_fat_g": 0,
+    "cholesterol_mg": 125,
+    "sodium_mg": 120
+  },
+  "minerals_mg": {
+    "calcium": 15,
+    "iron": 1.2,
+    "magnesium": 35,
+    "phosphorus": 380,
+    "potassium": 450,
+    "zinc": 2,
+    "selenium_mcg": 35,
+    "copper": 0.05,
+    "manganese": 0.02
+  },
+  "vitamins": {
+    "vitamin_a_mcg": 10,
+    "vitamin_c_mg": 0,
+    "vitamin_d_iu": 4,
+    "vitamin_e_mg": 0.3,
+    "vitamin_k_mcg": 0,
+    "thiamin_mg": 0.1,
+    "riboflavin_mg": 0.15,
+    "niacin_mg": 18,
+    "vitamin_b6_mg": 0.9,
+    "folate_mcg": 8,
+    "vitamin_b12_mcg": 0.5
+  },
+  "other": {
+    "caffeine_mg": 0,
+    "omega_3_g": 0.05
+  }
+}

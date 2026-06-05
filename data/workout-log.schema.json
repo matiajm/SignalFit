@@ -1,0 +1,51 @@
+{
+  "$comment": "Structured workout for a check-in. Maps to workout_exercises + workout_sets.",
+  "session": {
+    "trained": true,
+    "type": "strength",
+    "duration_min": 75,
+    "intensity": "hard",
+    "rpe": 8,
+    "performance_vs_usual": "much_worse",
+    "volume_feel": "normal",
+    "soreness": 4,
+    "soreness_areas": ["quads", "glutes"]
+  },
+  "exercises": [
+    {
+      "name": "Back Squat",
+      "muscle_group": "quads",
+      "equipment": "barbell",
+      "sets": [
+        { "set_number": 1, "reps": 5, "weight_lb": 185, "rpe": 7, "is_warmup": true },
+        { "set_number": 2, "reps": 5, "weight_lb": 225, "rpe": 8, "is_warmup": false },
+        { "set_number": 3, "reps": 5, "weight_lb": 225, "rpe": 9, "is_warmup": false }
+      ]
+    },
+    {
+      "name": "Romanian Deadlift",
+      "muscle_group": "hamstrings",
+      "equipment": "barbell",
+      "sets": [
+        { "set_number": 1, "reps": 8, "weight_lb": 185, "rpe": 8 },
+        { "set_number": 2, "reps": 8, "weight_lb": 185, "rpe": 8 },
+        { "set_number": 3, "reps": 8, "weight_lb": 185, "rpe": 9 }
+      ]
+    },
+    {
+      "name": "Leg Press",
+      "muscle_group": "quads",
+      "equipment": "machine",
+      "sets": [
+        { "set_number": 1, "reps": 12, "weight_lb": 360, "rpe": 8 },
+        { "set_number": 2, "reps": 12, "weight_lb": 360, "rpe": 9 }
+      ]
+    }
+  ],
+  "computed": {
+    "total_sets": 8,
+    "total_reps": 59,
+    "total_volume_lb": 19850,
+    "comment": "volume = sum(reps * weight_lb) for non-warmup sets"
+  }
+}
