@@ -28,7 +28,15 @@ The app reads the latest `daily_checkins` row where `is_demo = true`. If those v
 npm run build
 ```
 
-## OpenAI client
+## Data check
+
+```bash
+npm run check:data
+```
+
+This verifies that the configured Supabase project exposes a complete demo check-in graph through the anon key.
+
+## OpenAI client (gpt-4.1-mini)
 
 The server-side OpenAI helper is available at `src/lib/openai/` and defaults to `gpt-4.1-mini`.
 
