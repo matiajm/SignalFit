@@ -10,6 +10,25 @@ npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --
 
 Add `POST /api/insight` per [../docs/API-CONTRACT.md](../docs/API-CONTRACT.md).
 
+## OpenAI client (gpt-4.1-mini)
+
+After scaffolding, install the SDK and copy env:
+
+```bash
+npm install openai
+cp .env.example .env.local
+```
+
+Server-side usage (e.g. in `src/app/api/insight/route.ts`):
+
+```typescript
+import { createResponseText } from "@/lib/openai";
+
+const text = await createResponseText("Explain quantum computing in simple terms.");
+```
+
+Implementation: [src/lib/openai/](./src/lib/openai/).
+
 ## Env
 
 ```bash
