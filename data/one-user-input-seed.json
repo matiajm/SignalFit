@@ -1,0 +1,421 @@
+{
+  "description": "Plain user-entered SignalFit demo data for one user across 10 days. This is intentionally raw input data, not API contract data and not LLM output.",
+  "user": {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "display_name": "Demo User",
+    "goal": "build_muscle",
+    "experience_level": "intermediate",
+    "weight_unit": "lb",
+    "is_demo": true,
+    "demo_slug": "demo-user"
+  },
+  "days": [
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222201",
+      "checkin_date": "2026-06-04",
+      "weight_lb": 172.0,
+      "sleep_hours": 5.0,
+      "sleep_quality": "low",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "no", "vitamin_d": "skipped", "other": "creatine 5g" },
+      "energy": "low",
+      "mood": "low",
+      "stress": "low",
+      "motivation": "low",
+      "notes": "Heavy work deadlines. Skipped lunch and leg day felt awful.",
+      "meals": [
+        {
+          "name": "breakfast",
+          "items": [
+            { "description": "coffee black", "quantity": "12 oz" },
+            { "description": "banana", "quantity": "1 medium" }
+          ]
+        },
+        {
+          "name": "lunch",
+          "items": []
+        },
+        {
+          "name": "pre_workout",
+          "items": [
+            { "description": "protein bar", "quantity": "1 bar" }
+          ]
+        },
+        {
+          "name": "dinner",
+          "items": [
+            { "description": "grilled chicken breast", "quantity": "6 oz" },
+            { "description": "white rice", "quantity": "1 cup" },
+            { "description": "steamed broccoli", "quantity": "1 cup" }
+          ]
+        }
+      ],
+      "training": {
+        "trained": true,
+        "type": "strength",
+        "duration_min": 75,
+        "muscle_groups": ["quads", "glutes", "hamstrings"],
+        "intensity": "hard",
+        "rpe": 8,
+        "performance_vs_usual": "much_worse",
+        "volume_feel": "normal",
+        "soreness": 4,
+        "soreness_areas": ["quads", "glutes"],
+        "exercises": [
+          {
+            "name": "Back Squat",
+            "muscle_group": "quads",
+            "equipment": "barbell",
+            "sets": [
+              { "set_number": 1, "reps": 5, "weight_lb": 185, "rpe": 7, "is_warmup": true },
+              { "set_number": 2, "reps": 5, "weight_lb": 225, "rpe": 8, "is_warmup": false },
+              { "set_number": 3, "reps": 5, "weight_lb": 225, "rpe": 9, "is_warmup": false }
+            ]
+          },
+          {
+            "name": "Romanian Deadlift",
+            "muscle_group": "hamstrings",
+            "equipment": "barbell",
+            "sets": [
+              { "set_number": 1, "reps": 8, "weight_lb": 185, "rpe": 8, "is_warmup": false },
+              { "set_number": 2, "reps": 8, "weight_lb": 185, "rpe": 8, "is_warmup": false },
+              { "set_number": 3, "reps": 8, "weight_lb": 185, "rpe": 9, "is_warmup": false }
+            ]
+          },
+          {
+            "name": "Leg Press",
+            "muscle_group": "quads",
+            "equipment": "machine",
+            "sets": [
+              { "set_number": 1, "reps": 12, "weight_lb": 360, "rpe": 8, "is_warmup": false },
+              { "set_number": 2, "reps": 12, "weight_lb": 360, "rpe": 9, "is_warmup": false }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222202",
+      "checkin_date": "2026-06-03",
+      "weight_lb": 172.4,
+      "sleep_hours": 5.5,
+      "sleep_quality": "low",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "no", "vitamin_d": "skipped", "other": "creatine 5g" },
+      "energy": "low",
+      "mood": "okay",
+      "stress": "low",
+      "motivation": "low",
+      "notes": "Long workday. Felt drained and only walked after dinner.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "oatmeal", "quantity": "1 cup" }, { "description": "coffee", "quantity": "12 oz" }] },
+        { "name": "lunch", "items": [{ "description": "turkey sandwich", "quantity": "1 sandwich" }] },
+        { "name": "dinner", "items": [{ "description": "chicken bowl with rice", "quantity": "1 bowl" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "mobility",
+        "duration_min": 20,
+        "muscle_groups": [],
+        "intensity": "light",
+        "rpe": 3,
+        "performance_vs_usual": "below",
+        "volume_feel": "lower",
+        "soreness": 3,
+        "soreness_areas": ["quads"],
+        "exercises": [
+          { "name": "Walk", "muscle_group": "full_body", "equipment": "none", "sets": [{ "set_number": 1, "duration_sec": 1200, "rpe": 3, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222203",
+      "checkin_date": "2026-06-02",
+      "weight_lb": 172.1,
+      "sleep_hours": 7.75,
+      "sleep_quality": "good",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "yes", "vitamin_d": "yes", "other": "creatine 5g" },
+      "energy": "good",
+      "mood": "good",
+      "stress": "good",
+      "motivation": "good",
+      "notes": "Best energy of the week. Ate lunch before training.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "eggs", "quantity": "3 large" }, { "description": "toast", "quantity": "2 slices" }] },
+        { "name": "lunch", "items": [{ "description": "chicken rice bowl", "quantity": "1 large bowl" }] },
+        { "name": "pre_workout", "items": [{ "description": "banana", "quantity": "1 medium" }, { "description": "whey protein shake", "quantity": "1 scoop" }] },
+        { "name": "dinner", "items": [{ "description": "salmon", "quantity": "6 oz" }, { "description": "sweet potato", "quantity": "1 large" }, { "description": "spinach salad", "quantity": "1 bowl" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "hypertrophy",
+        "duration_min": 68,
+        "muscle_groups": ["chest", "back", "shoulders", "triceps"],
+        "intensity": "hard",
+        "rpe": 8,
+        "performance_vs_usual": "better",
+        "volume_feel": "higher",
+        "soreness": 2,
+        "soreness_areas": ["chest"],
+        "exercises": [
+          { "name": "Bench Press", "muscle_group": "chest", "equipment": "barbell", "sets": [{ "set_number": 1, "reps": 8, "weight_lb": 155, "rpe": 7, "is_warmup": false }, { "set_number": 2, "reps": 8, "weight_lb": 165, "rpe": 8, "is_warmup": false }, { "set_number": 3, "reps": 7, "weight_lb": 165, "rpe": 9, "is_warmup": false }] },
+          { "name": "Cable Row", "muscle_group": "back", "equipment": "cable", "sets": [{ "set_number": 1, "reps": 12, "weight_lb": 130, "rpe": 7, "is_warmup": false }, { "set_number": 2, "reps": 12, "weight_lb": 140, "rpe": 8, "is_warmup": false }, { "set_number": 3, "reps": 10, "weight_lb": 140, "rpe": 8, "is_warmup": false }] },
+          { "name": "Dumbbell Shoulder Press", "muscle_group": "shoulders", "equipment": "dumbbell", "sets": [{ "set_number": 1, "reps": 10, "weight_lb": 45, "rpe": 8, "is_warmup": false }, { "set_number": 2, "reps": 9, "weight_lb": 45, "rpe": 8, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222204",
+      "checkin_date": "2026-06-01",
+      "weight_lb": 171.9,
+      "sleep_hours": 6.75,
+      "sleep_quality": "okay",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "partial", "vitamin_d": "yes", "other": "creatine 5g" },
+      "energy": "okay",
+      "mood": "okay",
+      "stress": "okay",
+      "motivation": "okay",
+      "notes": "Rest day. Moderate meals, no major soreness.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "greek yogurt", "quantity": "170g" }, { "description": "berries", "quantity": "1 cup" }] },
+        { "name": "lunch", "items": [{ "description": "chicken salad wrap", "quantity": "1 wrap" }] },
+        { "name": "dinner", "items": [{ "description": "beef tacos", "quantity": "3 tacos" }] }
+      ],
+      "training": {
+        "trained": false,
+        "type": "mobility",
+        "duration_min": 15,
+        "muscle_groups": [],
+        "intensity": "light",
+        "rpe": 2,
+        "performance_vs_usual": null,
+        "volume_feel": "lower",
+        "soreness": 2,
+        "soreness_areas": [],
+        "exercises": []
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222205",
+      "checkin_date": "2026-05-31",
+      "weight_lb": 172.7,
+      "sleep_hours": 4.5,
+      "sleep_quality": "low",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "no", "vitamin_d": "skipped", "other": "" },
+      "energy": "low",
+      "mood": "low",
+      "stress": "low",
+      "motivation": "low",
+      "notes": "Late night. Morning cardio felt way harder than normal.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "coffee", "quantity": "16 oz" }] },
+        { "name": "lunch", "items": [{ "description": "protein shake", "quantity": "1 scoop" }, { "description": "banana", "quantity": "1 medium" }] },
+        { "name": "dinner", "items": [{ "description": "pasta with chicken", "quantity": "1 plate" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "cardio",
+        "duration_min": 32,
+        "muscle_groups": ["legs"],
+        "intensity": "moderate",
+        "rpe": 7,
+        "performance_vs_usual": "much_worse",
+        "volume_feel": "normal",
+        "soreness": 3,
+        "soreness_areas": ["calves"],
+        "exercises": [
+          { "name": "Treadmill Run", "muscle_group": "legs", "equipment": "treadmill", "sets": [{ "set_number": 1, "duration_sec": 1920, "distance_m": 4800, "rpe": 7, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222206",
+      "checkin_date": "2026-05-30",
+      "weight_lb": 172.2,
+      "sleep_hours": 7.25,
+      "sleep_quality": "good",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "yes", "vitamin_d": "yes", "other": "creatine 5g" },
+      "energy": "good",
+      "mood": "good",
+      "stress": "good",
+      "motivation": "good",
+      "notes": "Good lower session. Normal soreness and good food timing.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "oatmeal", "quantity": "1.5 cups" }, { "description": "whey protein", "quantity": "1 scoop" }] },
+        { "name": "lunch", "items": [{ "description": "rice bowl with steak", "quantity": "1 bowl" }] },
+        { "name": "pre_workout", "items": [{ "description": "banana", "quantity": "1 medium" }] },
+        { "name": "dinner", "items": [{ "description": "chicken breast", "quantity": "8 oz" }, { "description": "rice", "quantity": "1.5 cups" }, { "description": "broccoli", "quantity": "1 cup" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "strength",
+        "duration_min": 72,
+        "muscle_groups": ["quads", "glutes", "hamstrings"],
+        "intensity": "hard",
+        "rpe": 8,
+        "performance_vs_usual": "normal",
+        "volume_feel": "normal",
+        "soreness": 2,
+        "soreness_areas": ["glutes"],
+        "exercises": [
+          { "name": "Back Squat", "muscle_group": "quads", "equipment": "barbell", "sets": [{ "set_number": 1, "reps": 5, "weight_lb": 225, "rpe": 8, "is_warmup": false }, { "set_number": 2, "reps": 5, "weight_lb": 230, "rpe": 8, "is_warmup": false }, { "set_number": 3, "reps": 5, "weight_lb": 230, "rpe": 8, "is_warmup": false }] },
+          { "name": "Hip Thrust", "muscle_group": "glutes", "equipment": "barbell", "sets": [{ "set_number": 1, "reps": 10, "weight_lb": 275, "rpe": 8, "is_warmup": false }, { "set_number": 2, "reps": 10, "weight_lb": 275, "rpe": 8, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222207",
+      "checkin_date": "2026-05-29",
+      "weight_lb": 172.5,
+      "sleep_hours": 6.25,
+      "sleep_quality": "okay",
+      "nutrition_source": "pasted",
+      "skipped_food_log": true,
+      "pasted_text": "Ate breakfast and dinner, forgot lunch details.",
+      "supplements": { "multivitamin": "not_sure", "vitamin_d": "not_sure", "other": "" },
+      "energy": "okay",
+      "mood": "okay",
+      "stress": "okay",
+      "motivation": "okay",
+      "notes": "Partial food log. Useful day for showing uncertainty.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "eggs and toast", "quantity": "1 plate" }] },
+        { "name": "dinner", "items": [{ "description": "burger and fries", "quantity": "1 meal" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "mixed",
+        "duration_min": 45,
+        "muscle_groups": ["back", "core"],
+        "intensity": "moderate",
+        "rpe": 6,
+        "performance_vs_usual": "normal",
+        "volume_feel": "normal",
+        "soreness": 2,
+        "soreness_areas": [],
+        "exercises": [
+          { "name": "Lat Pulldown", "muscle_group": "back", "equipment": "cable", "sets": [{ "set_number": 1, "reps": 12, "weight_lb": 110, "rpe": 7, "is_warmup": false }, { "set_number": 2, "reps": 12, "weight_lb": 120, "rpe": 7, "is_warmup": false }] },
+          { "name": "Plank", "muscle_group": "core", "equipment": "none", "sets": [{ "set_number": 1, "duration_sec": 60, "rpe": 6, "is_warmup": false }, { "set_number": 2, "duration_sec": 60, "rpe": 7, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222208",
+      "checkin_date": "2026-05-28",
+      "weight_lb": 171.8,
+      "sleep_hours": 7.0,
+      "sleep_quality": "good",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "yes", "vitamin_d": "yes", "other": "creatine 5g" },
+      "energy": "good",
+      "mood": "good",
+      "stress": "good",
+      "motivation": "good",
+      "notes": "Solid day. No workout, but steps were high.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "greek yogurt granola", "quantity": "1 bowl" }] },
+        { "name": "lunch", "items": [{ "description": "chicken burrito bowl", "quantity": "1 bowl" }] },
+        { "name": "dinner", "items": [{ "description": "salmon rice and vegetables", "quantity": "1 plate" }] }
+      ],
+      "training": {
+        "trained": false,
+        "type": "cardio",
+        "duration_min": 35,
+        "muscle_groups": ["legs"],
+        "intensity": "light",
+        "rpe": 3,
+        "performance_vs_usual": null,
+        "volume_feel": "lower",
+        "soreness": 1,
+        "soreness_areas": [],
+        "exercises": [
+          { "name": "Outdoor Walk", "muscle_group": "legs", "equipment": "none", "sets": [{ "set_number": 1, "duration_sec": 2100, "distance_m": 3200, "rpe": 3, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222209",
+      "checkin_date": "2026-05-27",
+      "weight_lb": 172.6,
+      "sleep_hours": 6.0,
+      "sleep_quality": "okay",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "partial", "vitamin_d": "skipped", "other": "creatine 5g" },
+      "energy": "okay",
+      "mood": "okay",
+      "stress": "okay",
+      "motivation": "okay",
+      "notes": "Upper body workout was fine but not amazing.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "protein shake", "quantity": "1 scoop" }, { "description": "banana", "quantity": "1 medium" }] },
+        { "name": "lunch", "items": [{ "description": "turkey rice bowl", "quantity": "1 bowl" }] },
+        { "name": "dinner", "items": [{ "description": "chicken pasta", "quantity": "1 plate" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "hypertrophy",
+        "duration_min": 60,
+        "muscle_groups": ["chest", "back", "biceps"],
+        "intensity": "moderate",
+        "rpe": 7,
+        "performance_vs_usual": "normal",
+        "volume_feel": "normal",
+        "soreness": 2,
+        "soreness_areas": ["biceps"],
+        "exercises": [
+          { "name": "Incline Dumbbell Press", "muscle_group": "chest", "equipment": "dumbbell", "sets": [{ "set_number": 1, "reps": 10, "weight_lb": 55, "rpe": 7, "is_warmup": false }, { "set_number": 2, "reps": 10, "weight_lb": 60, "rpe": 8, "is_warmup": false }] },
+          { "name": "Seated Row", "muscle_group": "back", "equipment": "machine", "sets": [{ "set_number": 1, "reps": 12, "weight_lb": 130, "rpe": 7, "is_warmup": false }, { "set_number": 2, "reps": 12, "weight_lb": 130, "rpe": 8, "is_warmup": false }] }
+        ]
+      }
+    },
+    {
+      "checkin_id": "22222222-2222-2222-2222-222222222210",
+      "checkin_date": "2026-05-26",
+      "weight_lb": 172.0,
+      "sleep_hours": 7.5,
+      "sleep_quality": "good",
+      "nutrition_source": "manual",
+      "skipped_food_log": false,
+      "supplements": { "multivitamin": "yes", "vitamin_d": "yes", "other": "creatine 5g" },
+      "energy": "good",
+      "mood": "good",
+      "stress": "good",
+      "motivation": "good",
+      "notes": "Strong baseline day. Meals and sleep were both solid.",
+      "meals": [
+        { "name": "breakfast", "items": [{ "description": "eggs oatmeal and fruit", "quantity": "1 plate" }] },
+        { "name": "lunch", "items": [{ "description": "chicken rice vegetables", "quantity": "1 large bowl" }] },
+        { "name": "snack", "items": [{ "description": "greek yogurt", "quantity": "170g" }] },
+        { "name": "dinner", "items": [{ "description": "steak potatoes and salad", "quantity": "1 plate" }] }
+      ],
+      "training": {
+        "trained": true,
+        "type": "strength",
+        "duration_min": 70,
+        "muscle_groups": ["quads", "glutes", "hamstrings"],
+        "intensity": "hard",
+        "rpe": 8,
+        "performance_vs_usual": "better",
+        "volume_feel": "higher",
+        "soreness": 1,
+        "soreness_areas": [],
+        "exercises": [
+          { "name": "Deadlift", "muscle_group": "hamstrings", "equipment": "barbell", "sets": [{ "set_number": 1, "reps": 5, "weight_lb": 275, "rpe": 7, "is_warmup": false }, { "set_number": 2, "reps": 5, "weight_lb": 295, "rpe": 8, "is_warmup": false }, { "set_number": 3, "reps": 4, "weight_lb": 305, "rpe": 9, "is_warmup": false }] },
+          { "name": "Walking Lunge", "muscle_group": "quads", "equipment": "dumbbell", "sets": [{ "set_number": 1, "reps": 20, "weight_lb": 40, "rpe": 8, "is_warmup": false }, { "set_number": 2, "reps": 20, "weight_lb": 40, "rpe": 8, "is_warmup": false }] }
+        ]
+      }
+    }
+  ]
+}
