@@ -11,6 +11,17 @@ npm run dev
 
 Open the local URL printed by Vite, usually `http://localhost:5173/`.
 
+## Supabase data
+
+Create `app/.env.local` with the browser-safe Supabase values:
+
+```bash
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-public-key
+```
+
+The app reads the latest `daily_checkins` row where `is_demo = true`. If those variables are missing, or Supabase has no demo row, the UI falls back to bundled demo data.
+
 ## Build
 
 ```bash

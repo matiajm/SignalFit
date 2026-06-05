@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Bell, Zap, ChevronRight, Plus, TrendingUp, Moon, Battery, Brain, Flame } from "lucide-react";
+import { Battery, Brain, Flame, Moon, Plus, Zap } from "lucide-react";
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+
+import { calculateReadiness, formatDate, nutritionGoals } from "../data/metrics";
+import { useSignalFitData } from "../data/useSignalFitData";
 import { CircularProgress } from "./CircularProgress";
-import { AreaChart, Area, XAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 const GlassCard = ({
   children,
@@ -35,26 +38,30 @@ const recoveryData = [
   { day: "Sun", score: 82 },
 ];
 
-const MacroCard = ({
+const scoreColorFor = (score: number) => {
+  if (score >= 80) return "#10B981";
+  if (score >= 60) return "#F59E0B";
+  return "#EF4444";
+};
+
+function MacroCard({
   label,
   current,
   goal,
   unit,
   color,
-  emoji,
 }: {
   label: string;
   current: number;
   goal: number;
   unit: string;
   color: string;
-  emoji: string;
-}) => {
+}) {
   const pct = Math.min((current / goal) * 100, 100);
   return (
     <GlassCard className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span style={{ fontSize: 18 }}>{emoji}</span>
+        <span style={{ color: "#6B6B9A", fontSize: 12, fontWeight: 700 }}>{label}</span>
         <span
           style={{
             fontSize: 11,
@@ -69,90 +76,45 @@ const MacroCard = ({
           {Math.round(pct)}%
         </span>
       </div>
-      <div>
-        <div
-          style={{
-            fontSize: 22,
-            fontWeight: 800,
-            color: "#EEEEFF",
-            fontFamily: "JetBrains Mono, monospace",
-            lineHeight: 1,
-          }}
-        >
-          {current}
-          <span style={{ fontSize: 13, fontWeight: 500, color: "#6B6B9A", marginLeft: 3 }}>{unit}</span>
-        </div>
-        <div style={{ color: "#6B6B9A", fontSize: 12, marginTop: 2 }}>
-          {label} · goal {goal}{unit}
-        </div>
+      <div
+        style={{
+          fontSize: 22,
+          fontWeight: 800,
+          color: "#EEEEFF",
+          fontFamily: "JetBrains Mono, monospace",
+          lineHeight: 1,
+        }}
+      >
+        {current.toLocaleString()}
+        <span style={{ fontSize: 13, fontWeight: 500, color: "#6B6B9A", marginLeft: 3 }}>{unit}</span>
       </div>
       <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
-        <div
-          className="h-full rounded-full transition-all duration-700"
-          style={{ width: `${pct}%`, background: color }}
-        />
+        <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: color }} />
       </div>
+      <div style={{ color: "#6B6B9A", fontSize: 12 }}>Goal {goal.toLocaleString()}{unit}</div>
     </GlassCard>
   );
-};
+}
 
 export function Dashboard() {
+  const { data, loading, error } = useSignalFitData();
   const [expandedMeal, setExpandedMeal] = useState<string | null>(null);
-  const readinessScore = 82;
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "#10B981";
-    if (score >= 60) return "#F59E0B";
-    return "#EF4444";
-  };
-
-  const scoreColor = getScoreColor(readinessScore);
-
-  const meals = [
-    {
-      id: "breakfast",
-      name: "Breakfast",
-      emoji: "🌅",
-      time: "7:30 AM",
-      calories: 520,
-      protein: 38,
-      foods: ["Greek yogurt (150g)", "Granola (40g)", "Blueberries (80g)", "Whey protein shake"],
-    },
-    {
-      id: "lunch",
-      name: "Lunch",
-      emoji: "☀️",
-      time: "12:15 PM",
-      calories: 680,
-      protein: 52,
-      foods: ["Grilled chicken breast (200g)", "Brown rice (150g)", "Broccoli (120g)", "Olive oil (1 tbsp)"],
-    },
-    {
-      id: "dinner",
-      name: "Dinner",
-      emoji: "🌙",
-      time: "6:45 PM",
-      calories: 720,
-      protein: 58,
-      foods: ["Salmon fillet (220g)", "Sweet potato (200g)", "Asparagus (100g)", "Lemon butter sauce"],
-    },
-    {
-      id: "snacks",
-      name: "Snacks",
-      emoji: "🍎",
-      time: "3:00 PM",
-      calories: 280,
-      protein: 22,
-      foods: ["Protein bar (1)", "Apple (1 medium)", "Almonds (30g)"],
-    },
-  ];
+  const readinessScore = calculateReadiness(data);
+  const scoreColor = scoreColorFor(readinessScore);
+  const dateLabel = formatDate(data.checkinDate);
+  const sourceLabel = loading ? "Loading Supabase" : error ? "Local demo fallback" : data.source === "supabase" ? "Supabase live data" : "Local demo data";
+  const activeMeals = data.meals.filter((meal) => meal.items.length > 0);
+  const initials = data.profileName
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+  const workoutTitle = data.exercises[0]?.name ?? data.training.type ?? "No workout logged";
+  const muscleGroups = data.training.muscleGroups.length ? data.training.muscleGroups.join(" - ") : "No muscle groups logged";
 
   return (
-    <div
-      className="flex flex-col min-h-screen"
-      style={{ background: "linear-gradient(160deg, #07070F 0%, #0D0820 50%, #070F1A 100%)" }}
-    >
-      {/* Ambient glows */}
+    <div className="flex flex-col min-h-screen" style={{ background: "linear-gradient(160deg, #07070F 0%, #0D0820 50%, #070F1A 100%)" }}>
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
@@ -162,39 +124,25 @@ export function Dashboard() {
       />
 
       <div className="relative z-10 flex flex-col gap-5 px-5 pt-14 pb-32">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <div style={{ color: "#6B6B9A", fontSize: 13, fontWeight: 500 }}>Good morning 👋</div>
-            <div
-              style={{
-                color: "#EEEEFF",
-                fontSize: 22,
-                fontWeight: 800,
-                fontFamily: "Outfit, sans-serif",
-                lineHeight: 1.2,
-                marginTop: 2,
-              }}
-            >
-              Alex Johnson
+            <div style={{ color: "#6B6B9A", fontSize: 13, fontWeight: 500 }}>{sourceLabel}</div>
+            <div style={{ color: "#EEEEFF", fontSize: 22, fontWeight: 800, fontFamily: "Outfit, sans-serif", lineHeight: 1.2, marginTop: 2 }}>
+              {data.profileName}
             </div>
-            <div style={{ color: "#6B6B9A", fontSize: 12, marginTop: 1 }}>Thursday, June 5 · Week 18</div>
+            <div style={{ color: "#6B6B9A", fontSize: 12, marginTop: 1 }}>{dateLabel}</div>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl" style={{ background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.25)" }}>
               <Flame size={13} style={{ color: "#F59E0B" }} />
-              <span style={{ color: "#F59E0B", fontSize: 13, fontWeight: 700, fontFamily: "JetBrains Mono, monospace" }}>23</span>
+              <span style={{ color: "#F59E0B", fontSize: 13, fontWeight: 700, fontFamily: "JetBrains Mono, monospace" }}>{activeMeals.length}</span>
             </div>
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #3B82F6, #8B5CF6)" }}
-            >
-              <span style={{ color: "#fff", fontSize: 15, fontWeight: 700 }}>AJ</span>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #3B82F6, #8B5CF6)" }}>
+              <span style={{ color: "#fff", fontSize: 15, fontWeight: 700 }}>{initials}</span>
             </div>
           </div>
         </div>
 
-        {/* AI Readiness Score */}
         <div
           className="rounded-2xl p-6"
           style={{
@@ -203,14 +151,12 @@ export function Dashboard() {
             backdropFilter: "blur(16px)",
           }}
         >
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-5 gap-5">
             <div>
               <div style={{ color: "#6B6B9A", fontSize: 12, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                AI Readiness Score
+                Readiness Score
               </div>
-              <div style={{ color: "#EEEEFF", fontSize: 15, marginTop: 4, maxWidth: 200 }}>
-                Your body is <span style={{ color: scoreColor, fontWeight: 700 }}>primed</span> for a heavy training session today.
-              </div>
+              <div style={{ color: "#EEEEFF", fontSize: 15, marginTop: 4, maxWidth: 220, lineHeight: 1.45 }}>{data.insight.summary}</div>
             </div>
             <CircularProgress value={readinessScore} max={100} size={90} strokeWidth={7} color={scoreColor}>
               <div style={{ textAlign: "center" }}>
@@ -221,53 +167,45 @@ export function Dashboard() {
               </div>
             </CircularProgress>
           </div>
-          <div className="flex gap-2">
-            {["Sleep 8.2h", "HRV 68ms", "Resting HR 52"].map((tag) => (
-              <div
-                key={tag}
-                className="px-2.5 py-1 rounded-lg"
-                style={{ background: "rgba(255,255,255,0.07)", color: "#A0A0C8", fontSize: 11, fontWeight: 600 }}
-              >
+          <div className="flex gap-2 flex-wrap">
+            {[`Sleep ${data.sleepHours}h`, `Energy ${data.energy ?? "n/a"}`, `Stress ${data.stress ?? "n/a"}`].map((tag) => (
+              <div key={tag} className="px-2.5 py-1 rounded-lg" style={{ background: "rgba(255,255,255,0.07)", color: "#A0A0C8", fontSize: 11, fontWeight: 600 }}>
                 {tag}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Macro Grid */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 style={{ color: "#EEEEFF", fontSize: 16, fontWeight: 700 }}>Today's Nutrition</h3>
-            <span style={{ color: "#3B82F6", fontSize: 13, fontWeight: 600 }}>2,200 kcal goal</span>
+            <span style={{ color: "#3B82F6", fontSize: 13, fontWeight: 600 }}>{nutritionGoals.calories.toLocaleString()} kcal goal</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <MacroCard label="Calories" current={1680} goal={2200} unit="kcal" color="#F59E0B" emoji="🔥" />
-            <MacroCard label="Protein" current={142} goal={175} unit="g" color="#3B82F6" emoji="💪" />
-            <MacroCard label="Carbs" current={196} goal={260} unit="g" color="#8B5CF6" emoji="🌾" />
-            <MacroCard label="Fat" current={52} goal={73} unit="g" color="#10B981" emoji="🥑" />
+            <MacroCard label="Calories" current={Math.round(data.nutrition.calories)} goal={nutritionGoals.calories} unit="kcal" color="#F59E0B" />
+            <MacroCard label="Protein" current={Math.round(data.nutrition.proteinG)} goal={nutritionGoals.proteinG} unit="g" color="#3B82F6" />
+            <MacroCard label="Carbs" current={Math.round(data.nutrition.carbsG)} goal={nutritionGoals.carbsG} unit="g" color="#8B5CF6" />
+            <MacroCard label="Fat" current={Math.round(data.nutrition.fatG)} goal={nutritionGoals.fatG} unit="g" color="#10B981" />
           </div>
         </div>
 
-        {/* Recovery */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 style={{ color: "#EEEEFF", fontSize: 16, fontWeight: 700 }}>Recovery</h3>
-            <span style={{ color: "#6B6B9A", fontSize: 13 }}>Last 7 days</span>
+            <span style={{ color: "#6B6B9A", fontSize: 13 }}>Current check-in</span>
           </div>
           <GlassCard>
             <div className="grid grid-cols-3 gap-4 mb-4">
               {[
-                { icon: Moon, label: "Sleep", value: "8.2h", color: "#8B5CF6", sub: "Excellent" },
-                { icon: Battery, label: "Energy", value: "78%", color: "#F59E0B", sub: "High" },
-                { icon: Brain, label: "Stress", value: "Low", color: "#10B981", sub: "Optimal" },
+                { icon: Moon, label: "Sleep", value: `${data.sleepHours}h`, color: "#8B5CF6", sub: data.sleepQuality ?? "Logged" },
+                { icon: Battery, label: "Energy", value: data.energy ?? "n/a", color: "#F59E0B", sub: "Check-in" },
+                { icon: Brain, label: "Stress", value: data.stress ?? "n/a", color: "#10B981", sub: "Check-in" },
               ].map(({ icon: Icon, label, value, color, sub }) => (
                 <div key={label} className="flex flex-col items-center gap-1">
                   <Icon size={18} style={{ color }} />
-                  <div style={{ color: "#EEEEFF", fontSize: 15, fontWeight: 700, fontFamily: "JetBrains Mono, monospace" }}>
-                    {value}
-                  </div>
+                  <div style={{ color: "#EEEEFF", fontSize: 15, fontWeight: 700, fontFamily: "JetBrains Mono, monospace", textTransform: "capitalize" }}>{value}</div>
                   <div style={{ color: "#6B6B9A", fontSize: 11 }}>{label}</div>
-                  <div style={{ color, fontSize: 10, fontWeight: 600 }}>{sub}</div>
+                  <div style={{ color, fontSize: 10, fontWeight: 600, textTransform: "capitalize" }}>{sub}</div>
                 </div>
               ))}
             </div>
@@ -282,23 +220,17 @@ export function Dashboard() {
                   </defs>
                   <Area type="monotone" dataKey="score" stroke="#3B82F6" strokeWidth={2} fill="url(#recovGrad)" dot={false} />
                   <XAxis dataKey="day" hide />
-                  <Tooltip
-                    contentStyle={{ background: "#0E0E1C", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, color: "#EEEEFF", fontSize: 12 }}
-                  />
+                  <Tooltip contentStyle={{ background: "#0E0E1C", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, color: "#EEEEFF", fontSize: 12 }} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </GlassCard>
         </div>
 
-        {/* Workout */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 style={{ color: "#EEEEFF", fontSize: 16, fontWeight: 700 }}>Today's Workout</h3>
-            <button
-              className="flex items-center gap-1 px-3 py-1.5 rounded-xl"
-              style={{ background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.25)" }}
-            >
+            <button className="flex items-center gap-1 px-3 py-1.5 rounded-xl" style={{ background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.25)" }}>
               <Plus size={13} style={{ color: "#3B82F6" }} />
               <span style={{ color: "#3B82F6", fontSize: 12, fontWeight: 600 }}>Log</span>
             </button>
@@ -306,26 +238,21 @@ export function Dashboard() {
           <GlassCard>
             <div className="flex items-start justify-between">
               <div>
-                <div style={{ color: "#EEEEFF", fontSize: 17, fontWeight: 700 }}>Upper Body Push</div>
-                <div style={{ color: "#6B6B9A", fontSize: 13, marginTop: 2 }}>Chest · Shoulders · Triceps</div>
+                <div style={{ color: "#EEEEFF", fontSize: 17, fontWeight: 700 }}>{workoutTitle}</div>
+                <div style={{ color: "#6B6B9A", fontSize: 13, marginTop: 2 }}>{muscleGroups}</div>
               </div>
-              <div
-                className="px-3 py-1.5 rounded-xl"
-                style={{ background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.25)" }}
-              >
-                <span style={{ color: "#10B981", fontSize: 11, fontWeight: 700 }}>ACTIVE</span>
+              <div className="px-3 py-1.5 rounded-xl" style={{ background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.25)" }}>
+                <span style={{ color: "#10B981", fontSize: 11, fontWeight: 700 }}>{data.training.trained ? "LOGGED" : "REST"}</span>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-3 mt-4">
               {[
-                { label: "Duration", value: "52", unit: "min" },
-                { label: "Volume", value: "12,840", unit: "lbs" },
-                { label: "Sets Done", value: "18", unit: "sets" },
+                { label: "Duration", value: data.training.durationMin || 0, unit: "min" },
+                { label: "Volume", value: Math.round(data.training.totalVolumeLb).toLocaleString(), unit: "lbs" },
+                { label: "Sets Done", value: data.training.totalSets, unit: "sets" },
               ].map(({ label, value, unit }) => (
                 <div key={label} className="flex flex-col items-center py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <div style={{ color: "#EEEEFF", fontSize: 18, fontWeight: 800, fontFamily: "JetBrains Mono, monospace", lineHeight: 1 }}>
-                    {value}
-                  </div>
+                  <div style={{ color: "#EEEEFF", fontSize: 18, fontWeight: 800, fontFamily: "JetBrains Mono, monospace", lineHeight: 1 }}>{value}</div>
                   <div style={{ color: "#6B6B9A", fontSize: 10, marginTop: 2 }}>{unit}</div>
                   <div style={{ color: "#6B6B9A", fontSize: 10, marginTop: 1 }}>{label}</div>
                 </div>
@@ -334,47 +261,44 @@ export function Dashboard() {
           </GlassCard>
         </div>
 
-        {/* Meals */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 style={{ color: "#EEEEFF", fontSize: 16, fontWeight: 700 }}>Meal Log</h3>
-            <span style={{ color: "#6B6B9A", fontSize: 13 }}>1,680 / 2,200 kcal</span>
+            <span style={{ color: "#6B6B9A", fontSize: 13 }}>
+              {Math.round(data.nutrition.calories).toLocaleString()} / {nutritionGoals.calories.toLocaleString()} kcal
+            </span>
           </div>
           <div className="flex flex-col gap-2">
-            {meals.map((meal) => (
+            {data.meals.map((meal) => (
               <GlassCard key={meal.id} className="cursor-pointer" style={{ padding: 16 }}>
-                <button
-                  onClick={() => setExpandedMeal(expandedMeal === meal.id ? null : meal.id)}
-                  className="w-full text-left"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
-                        style={{ background: "rgba(255,255,255,0.05)" }}
-                      >
-                        {meal.emoji}
+                <button onClick={() => setExpandedMeal(expandedMeal === meal.id ? null : meal.id)} className="w-full text-left">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: "rgba(255,255,255,0.05)", color: "#EEEEFF", fontWeight: 800 }}>
+                        {meal.name.slice(0, 1).toUpperCase()}
                       </div>
-                      <div>
-                        <div style={{ color: "#EEEEFF", fontWeight: 600, fontSize: 15 }}>{meal.name}</div>
-                        <div style={{ color: "#6B6B9A", fontSize: 12 }}>{meal.time}</div>
+                      <div className="min-w-0">
+                        <div style={{ color: "#EEEEFF", fontWeight: 600, fontSize: 15, textTransform: "capitalize" }}>{meal.name.replaceAll("_", " ")}</div>
+                        <div style={{ color: "#6B6B9A", fontSize: 12 }}>{meal.items.length} items</div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div style={{ color: "#EEEEFF", fontWeight: 700, fontSize: 15, fontFamily: "JetBrains Mono, monospace" }}>
-                        {meal.calories} kcal
-                      </div>
-                      <div style={{ color: "#3B82F6", fontSize: 12, fontWeight: 600 }}>{meal.protein}g protein</div>
+                    <div className="text-right shrink-0">
+                      <div style={{ color: "#EEEEFF", fontWeight: 700, fontSize: 15, fontFamily: "JetBrains Mono, monospace" }}>{Math.round(meal.calories)} kcal</div>
+                      <div style={{ color: "#3B82F6", fontSize: 12, fontWeight: 600 }}>{Math.round(meal.proteinG)}g protein</div>
                     </div>
                   </div>
                   {expandedMeal === meal.id && (
                     <div className="mt-3 flex flex-col gap-1.5">
-                      {meal.foods.map((food, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#3B82F6", flexShrink: 0 }} />
-                          <span style={{ color: "#A0A0C8", fontSize: 13 }}>{food}</span>
-                        </div>
-                      ))}
+                      {meal.items.length === 0 ? (
+                        <span style={{ color: "#A0A0C8", fontSize: 13 }}>No food logged</span>
+                      ) : (
+                        meal.items.map((food) => (
+                          <div key={food.id} className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#3B82F6", flexShrink: 0 }} />
+                            <span style={{ color: "#A0A0C8", fontSize: 13 }}>{food.description} {food.quantity ? `(${food.quantity})` : ""}</span>
+                          </div>
+                        ))
+                      )}
                     </div>
                   )}
                 </button>
@@ -383,34 +307,21 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* AI Insights */}
         <div>
           <h3 style={{ color: "#EEEEFF", fontSize: 16, fontWeight: 700, marginBottom: 12 }}>AI Insights</h3>
-          <div
-            className="rounded-2xl p-5"
-            style={{
-              background: "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 100%)",
-              border: "1px solid rgba(139,92,246,0.2)",
-            }}
-          >
+          <div className="rounded-2xl p-5" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 100%)", border: "1px solid rgba(139,92,246,0.2)" }}>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(139,92,246,0.2)" }}>
                 <Zap size={16} style={{ color: "#8B5CF6" }} />
               </div>
-              <div style={{ color: "#EEEEFF", fontWeight: 700, fontSize: 16 }}>PeakTrack AI Analysis</div>
+              <div style={{ color: "#EEEEFF", fontWeight: 700, fontSize: 16 }}>SignalFit AI Analysis</div>
             </div>
-
-            <p style={{ color: "#A0A0C8", fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>
-              You've maintained an average protein intake of <span style={{ color: "#3B82F6", fontWeight: 700 }}>168g/day</span> this week — 96% of your target. Sleep consistency is improving your recovery scores.
-            </p>
-
+            <p style={{ color: "#A0A0C8", fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>{data.insight.summary}</p>
             <div className="flex flex-col gap-3">
               <div>
-                <div style={{ color: "#10B981", fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>
-                  ✓ Strengths
-                </div>
+                <div style={{ color: "#10B981", fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>Wins</div>
                 <div className="flex flex-col gap-2">
-                  {["Protein targets consistently hit", "Sleep duration improved +18%", "Workout volume trending up"].map((s) => (
+                  {data.insight.wins.map((s) => (
                     <div key={s} className="flex items-center gap-2">
                       <div className="w-1 h-1 rounded-full" style={{ background: "#10B981" }} />
                       <span style={{ color: "#A0A0C8", fontSize: 13 }}>{s}</span>
@@ -419,11 +330,9 @@ export function Dashboard() {
                 </div>
               </div>
               <div>
-                <div style={{ color: "#F59E0B", fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>
-                  ↑ Areas to Improve
-                </div>
+                <div style={{ color: "#F59E0B", fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>Next</div>
                 <div className="flex flex-col gap-2">
-                  {["Carbohydrate intake 18% below target", "Vitamin D supplementation timing", "Add 1 more rest day per week"].map((s) => (
+                  {data.insight.next.map((s) => (
                     <div key={s} className="flex items-center gap-2">
                       <div className="w-1 h-1 rounded-full" style={{ background: "#F59E0B" }} />
                       <span style={{ color: "#A0A0C8", fontSize: 13 }}>{s}</span>

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "check:data": "node ../scripts/check_supabase_demo.mjs",
     "dev": "vite"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
     "@radix-ui/react-toggle-group": "1.1.2",
     "@radix-ui/react-toggle": "1.1.2",
     "@radix-ui/react-tooltip": "1.1.8",
+    "@supabase/supabase-js": "^2.75.0",
     "canvas-confetti": "1.9.4",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
